@@ -7,7 +7,7 @@ export const metadata: Metadata={
     title: "Notifications"
 }
 
-export function Page(){
+export default function Page(){
     return <main className="flex w-full min-w-7 gap-5">
         <div className="w-full min-w-0 space-y-5">
             <div className="rounded-2xl bg-card p-5 shadow-sm">
