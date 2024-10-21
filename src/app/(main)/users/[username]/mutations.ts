@@ -16,7 +16,7 @@ export function useUpdateProfileMutation(){
     const {startUpload:startAvatarUpload} =  useUploadThing("avatar")
 
     const mutation = useMutation({
-        mutationFn:async ({values, avatar}:{values:UpdateUserProfileValues, avatar:File}) =>{
+        mutationFn:async ({values, avatar}:{values:UpdateUserProfileValues, avatar?:File}) =>{
             return Promise.all([
                 updateUserProfile(values),
                 avatar && startAvatarUpload([avatar])
