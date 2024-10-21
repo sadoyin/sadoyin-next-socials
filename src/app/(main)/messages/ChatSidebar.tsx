@@ -1,3 +1,8 @@
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { useQueryClient } from "@tanstack/react-query";
+import { MailPlus, X } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 import {
   ChannelList,
   ChannelPreviewMessenger,
@@ -5,12 +10,7 @@ import {
   useChatContext,
 } from "stream-chat-react";
 import { useSession } from "../SessionProvider";
-import { Button } from "@/components/ui/button";
-import { MailPlus, X } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useCallback, useEffect, useState } from "react";
 import NewChatDialog from "./NewChatDialog";
-import { useQueryClient } from "@tanstack/react-query";
 
 interface ChatSidebarProps {
   open: boolean;
@@ -20,26 +20,26 @@ interface ChatSidebarProps {
 export default function ChatSidebar({ open, onClose }: ChatSidebarProps) {
   const { user } = useSession();
 
-  const queryClient= useQueryClient()
+  const queryClient = useQueryClient();
 
-  const {channel}= useChatContext()
+  const { channel } = useChatContext();
 
-  useEffect(()=>{
-       if(channel?.id){
-        queryClient.invalidateQueries({queryKey:["unread-messages-count"]})
-       }
-  },[channel?.id,queryClient])
+  useEffect(() => {
+    if (channel?.id) {
+      queryClient.invalidateQueries({ queryKey: ["unread-messages-count"] });
+    }
+  }, [channel?.id, queryClient]);
 
   const ChannelPreviewCustom = useCallback(
-    (props: ChannelPreviewUIComponentProps) => {
+    (props: ChannelPreviewUIComponentProps) => (
       <ChannelPreviewMessenger
         {...props}
         onSelect={() => {
           props.setActiveChannel?.(props.channel, props.watchers);
           onClose();
         }}
-      />;
-    },
+      />
+    ),
     [onClose],
   );
 
@@ -92,10 +92,10 @@ function MenuHeader({ onClose }: MenuHeaderProps) {
         <Button
           size="icon"
           variant="ghost"
-          title="Start new Chat"
+          title="Start new chat"
           onClick={() => setShowNewChatDialog(true)}
         >
-          <MailPlus className="size-5z5" />
+          <MailPlus className="size-5" />
         </Button>
       </div>
       {showNewChatDialog && (
