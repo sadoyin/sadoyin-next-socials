@@ -86,7 +86,7 @@ export interface CommentsPage {
   previousCursor: string | null;
 }
 
-export const notificationsInclude = {
+export const notificationInclude = {
   issuer: {
     select: {
       username: true,
@@ -102,7 +102,7 @@ export const notificationsInclude = {
 } satisfies Prisma.NotificationInclude;
 
 export type NotificationData = Prisma.NotificationGetPayload<{
-  include: typeof notificationsInclude;
+  include: typeof notificationInclude;
 }>;
 
 export interface NotificationsPage {
