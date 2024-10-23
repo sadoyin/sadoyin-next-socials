@@ -27,7 +27,7 @@ export default function LikeButton({postId,initialState}:LikeButtonProps){
 
     const {mutate} = useMutation({
         mutationFn: ()=>
-            data.isLikeByUser
+            data.isLikedByUser
         ? kyInstance.delete(`/api/posts/${postId}/likes`)
         : kyInstance.post(`/api/posts/${postId}/likes`),
         onMutate: async ()=>{
@@ -37,8 +37,8 @@ export default function LikeButton({postId,initialState}:LikeButtonProps){
             const previousState = queryClient.getQueryData<LikeInfo>(queryKey)
 
             queryClient.setQueryData<LikeInfo>(queryKey, ()=> ({
-                likes: (previousState?.likes || 0) + (previousState?.isLikeByUser ? -1 : 1),
-                isLikeByUser: !previousState?.isLikeByUser
+                likes: (previousState?.likes || 0) + (previousState?.isLikedByUser ? -1 : 1),
+                isLikedByUser: !previousState?.isLikedByUser
             }))
 
             return {previousState}
@@ -54,7 +54,7 @@ export default function LikeButton({postId,initialState}:LikeButtonProps){
     })
 
     return <button onClick={()=> mutate()} className="flex items-center gap-2">
-        <Heart className={cn("size-5", data.isLikeByUser && "fill-red-500 text-red-500")}/>
+        <Heart className={cn("size-5", data.isLikedByUser && "fill-red-500 text-red-500")}/>
         <span className="text-sm font-medium tabular-nums">
             {data.likes} <span className="hidden sm:inline">likes</span>
         </span>
