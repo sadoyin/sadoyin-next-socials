@@ -40,7 +40,7 @@ export async function GET(req:Request,
 
     const data: LikeInfo={
         likes:post._count.likes,
-        isLikeByUser:!!post.likes.length
+        isLikedByUser:!!post.likes.length
     }
 
     return Response.json(data)
